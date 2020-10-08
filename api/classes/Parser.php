@@ -7,47 +7,23 @@ class Parser
 {
 
     /**
-     * @var array set to disable ssl verification
-     */
-    private $arrContextOptions=array(
-        "ssl"=>array(
-            "verify_peer"=>false,
-            "verify_peer_name"=>false,
-        ),
-    );
-
-    /**
      * @param $url
-     * @return bool|mixed
+     * @return mixed
      */
     public function parseUrl($url){
 
-        stream_context_set_default( [
-            'ssl' => [
-                'verify_peer' => false,
-                'verify_peer_name' => false,
-            ],
-        ]);
+        $curl = curl_init($url);
+        curl_setopt($curl, CURLOPT_URL, $url);
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
 
-        if($this->get_http_response_code($url) != "200"){
-           return false;
-        }
+        //for debug only!
+        curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false);
+        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
 
-        $json = file_get_contents($url,false);
-        $data = json_decode($json);
-        return $data;
+        $resp = curl_exec($curl);
+        curl_close($curl);
+        return json_decode($resp);
+
     }
-
-    /**
-     * @param $url
-     * @return false|string
-     */
-    private function get_http_response_code($url) {
-
-        $headers = get_headers($url,1);
-        return substr($headers[0], 9, 3);
-    }
-
-
 
 }

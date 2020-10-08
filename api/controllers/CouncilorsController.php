@@ -10,8 +10,7 @@ function listCouncilors($url,$order){
 
 
     if(!$data){
-        echo "Url doesn't exists";
-        return false;
+         return false;
     }
 
     $listOfCouncilors = [];
@@ -46,6 +45,7 @@ $order = $_GET['order'] ? $_GET['order'] : null;
 
 if($action == 'list'){
     $url = "https://politik.ch/dl/councillors.json";
+   // $url = "http://ws-old.parlament.ch/councillors?entryDateFilter=2018/12/31&format=json&pageNumber=5";
     echo json_encode(listCouncilors($url,$order));
 }
 
