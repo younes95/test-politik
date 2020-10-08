@@ -56,7 +56,7 @@ $random = $_GET['random'];
 $format = $_GET['format'] ? $_GET['format'] : null;
 
 if($action == 'list'){
-    $url = Parser::FILE_URL;
+    $url = Parser::REST_API_URL;
     echo json_encode(listCouncilors($url,$order));
 
 
