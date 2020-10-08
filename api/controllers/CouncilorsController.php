@@ -56,10 +56,8 @@ $random = $_GET['random'];
 $format = $_GET['format'] ? $_GET['format'] : null;
 
 if($action == 'list'){
-    $url = Parser::REST_API_URL;
+    $url = Parser::FILE_URL;
     echo json_encode(listCouncilors($url,$order));
-
-
 }
 
 
@@ -70,7 +68,7 @@ if($action=='listRestApi'){
         $pageNumber = rand(Parser::MIN_PAGE,Parser::MAX_PAGE);
     }
 
-    $url = Parser::FILE_URL.'?format='.$format.'&pageNumber='.$pageNumber;
+    $url = Parser::REST_API_URL.'?format='.$format.'&pageNumber='.$pageNumber;
 
     $listOfCouncilors = listCouncilors($url,$order);
 
