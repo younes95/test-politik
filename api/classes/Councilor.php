@@ -14,6 +14,7 @@ class Councilor
     public $active;
     public $updated;
 
+
     public function __construct($json = false) {
         if ($json) $this->set(json_decode($json, true));
     }

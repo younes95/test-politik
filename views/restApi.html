@@ -11,15 +11,12 @@
         </h4>
     </div>
     <div class="row" style="margin: 2%;">
-        <div class="col-3">
-            <a class="btn btn-link filterBy" value="lastname">Order by Lastname</a>
-        </div>
-        <div class="col-3">
-            <a class="btn btn-link filterBy" value="firstname">Order by Firstname</a>
+        <div class="col-6">
+            <a class="btn btn-link getRandom">Get details of 5 randomly chosen councillors</a>
         </div>
 
         <div class="col-3">
-            <a class="btn btn-link" href="restApi.html">Using Rest API</a>
+            <a class="btn btn-link" href="index.html">Using File Request</a>
         </div>
 
     </div>
@@ -83,20 +80,19 @@
         populateDatatable(dtCouncilors);
 
 
-        $('.filterBy').on('click',function(event){
+        $('.getRandom').on('click',function(event){
             event.preventDefault();
-            order = $(this).attr('value');
-            console.log(order);
-            populateDatatable(dtCouncilors,order)
+            random = 5;
+            populateDatatable(dtCouncilors,random);
         });
 
-        function populateDatatable(dtCouncilors,order = null){
+        function populateDatatable(dtCouncilors,random = null){
             dtCouncilors.clear();
             $.ajax({
                 type:'GET',
-                url: '/test-politik/api/controllers/CouncilorsController.php?action=list&order='+order,
+                url: '/test-politik/api/controllers/CouncilorsController.php?action=listRestApi&format=json&random='+random,
                 dataType:'json',
-                success: function (data) {// success callback function
+                success: function (data) {
 
                     for(key in data){
 
@@ -112,6 +108,9 @@
                             data[key].code
                         ]).draw(false);
                     }
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    console.log(errorThrown);
                 }
             });
         }

@@ -5,6 +5,10 @@ require_once('Councilor.php');
 
 class Parser
 {
+    const MAX_PAGE = 5;
+    const MIN_PAGE = 1;
+    const REST_API_URL = 'http://ws-old.parlament.ch/councillors';
+    const FILE_URL = "https://politik.ch/dl/councillors.json";
 
     /**
      * @param $url
