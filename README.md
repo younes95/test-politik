@@ -1,2 +1,2 @@
 # test-politik
-This is my code for a test interview
+To test the app visit /test-politik/views/index.html
